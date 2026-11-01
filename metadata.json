@@ -1,0 +1,6 @@
+{
+  "name": "Myposhtell - Student Hostel Resident App",
+  "description": "Official student hostel resident application by Memedeo Communications for gate passes, digital QR check-in, weekly mess menu, maintenance complaints, and hostel fee payments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
