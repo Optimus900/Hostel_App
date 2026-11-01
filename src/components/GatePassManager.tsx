@@ -322,9 +322,7 @@ export const GatePassManager: React.FC<GatePassManagerProps> = ({
   const [returnTime, setReturnTime] = useState<string>(() => getLocalTimeString(300));
   const [destination, setDestination] = useState<string>('');
   const [reasonDescription, setReasonDescription] = useState<string>('');
-  const [emergencyContact, setEmergencyContact] = useState<string>(() =>
-    getDefaultEmergencyContact(profile.phone, profile.parentMobile)
-  );
+  const [emergencyContact, setEmergencyContact] = useState<string>('');
   const [formError, setFormError] = useState<string | null>(null);
 
   // Real Visitor requests state persisted in device localStorage
@@ -370,7 +368,7 @@ export const GatePassManager: React.FC<GatePassManagerProps> = ({
     setReturnTime(defaultRetTime);
     setDestination('');
     setReasonDescription('');
-    setEmergencyContact(getDefaultEmergencyContact(profile.phone, profile.parentMobile));
+    setEmergencyContact('');
     setFormError(null);
     setIsCreating(true);
   };
@@ -1111,7 +1109,7 @@ export const GatePassManager: React.FC<GatePassManagerProps> = ({
                   type="tel"
                   value={emergencyContact}
                   onChange={(e) => setEmergencyContact(e.target.value)}
-                  placeholder="98766 54321"
+                  placeholder="9797XXXX"
                   className="w-full bg-transparent text-[15px] sm:text-[16px] font-medium text-[#0F172A] placeholder:text-[#64748B] focus:outline-none"
                 />
               </div>
