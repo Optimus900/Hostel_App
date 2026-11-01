@@ -52,7 +52,19 @@ export const ResidentDashboard: React.FC<ResidentDashboardProps> = ({
   onPayInvoice,
   onTriggerSos,
 }) => {
-  const { profile, notices, toggleCheckInStatus } = useHostel();
+  const { profile, notices, messMenu, toggleCheckInStatus } = useHostel();
+
+  const currentWeekdayName = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ][new Date().getDay()];
+  const todayMess =
+    messMenu.find((d) => d.dayOfWeek === currentWeekdayName) || messMenu[0];
 
   const [showNotificationsModal, setShowNotificationsModal] = useState<boolean>(false);
   const [showVisitorModal, setShowVisitorModal] = useState<boolean>(false);
@@ -459,8 +471,8 @@ export const ResidentDashboard: React.FC<ResidentDashboardProps> = ({
 
       {/* =========================================================================
           5. "TODAY'S MESS" SECTION CARD
-          Matches screenshot: Cookie icon, "Today's Mess", "Sunday" tag, "View Menu",
-          and Breakfast / Lunch / Dinner rows with "Menu not published"
+          Matches screenshot: Cookie icon, "Today's Mess", day tag, "View Menu",
+          and Breakfast / Lunch / Dinner rows with published menu items
           ========================================================================= */}
       <div className="bg-[#FFFDF9] rounded-[22px] border border-[#F3E9D8] p-4">
         <div className="flex items-center justify-between pb-3 border-b border-slate-200/60">
@@ -471,7 +483,7 @@ export const ResidentDashboard: React.FC<ResidentDashboardProps> = ({
 
           <div className="flex items-center gap-2.5">
             <span className="px-2.5 py-0.5 rounded-full bg-[#FBF0E4] text-[#D97736] text-[11.5px] font-medium">
-              Sunday
+              {todayMess?.dayOfWeek || 'Sunday'}
             </span>
             <button
               onClick={() => onNavigateTab('MESS')}
@@ -493,10 +505,13 @@ export const ResidentDashboard: React.FC<ResidentDashboardProps> = ({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline gap-2">
                 <span className="text-[14px] font-medium text-[#1E293B]">Breakfast</span>
-                <span className="text-[11px] text-[#64748B]">7:00 AM – 9:00 AM</span>
+                <span className="text-[11px] text-[#64748B]">
+                  {todayMess?.meals.breakfast.timing || '7:00 AM – 9:00 AM'}
+                </span>
               </div>
-              <p className="text-[12.5px] text-[#64748B] mt-0.5">
-                Menu not published
+              <p className="text-[12.5px] text-[#64748B] truncate mt-0.5">
+                {todayMess?.meals.breakfast.items.map((item) => item.name).join(' • ') ||
+                  'Kali Dosa-Aloo Palya • Shavige Bath • Coconut Chutney'}
               </p>
             </div>
           </div>
@@ -510,10 +525,13 @@ export const ResidentDashboard: React.FC<ResidentDashboardProps> = ({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline gap-2">
                 <span className="text-[14px] font-medium text-[#1E293B]">Lunch</span>
-                <span className="text-[11px] text-[#64748B]">12:30 PM – 2:30 PM</span>
+                <span className="text-[11px] text-[#64748B]">
+                  {todayMess?.meals.lunch.timing || '12:30 PM – 2:30 PM'}
+                </span>
               </div>
-              <p className="text-[12.5px] text-[#64748B] mt-0.5">
-                Menu not published
+              <p className="text-[12.5px] text-[#64748B] truncate mt-0.5">
+                {todayMess?.meals.lunch.items.map((item) => item.name).join(' • ') ||
+                  'Raita • Paneer Lababdar • Veg Biryani • Hyderabadi Chicken Biryani'}
               </p>
             </div>
           </div>
@@ -527,10 +545,13 @@ export const ResidentDashboard: React.FC<ResidentDashboardProps> = ({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline gap-2">
                 <span className="text-[14px] font-medium text-[#1E293B]">Dinner</span>
-                <span className="text-[11px] text-[#64748B]">7:00 PM – 9:00 PM</span>
+                <span className="text-[11px] text-[#64748B]">
+                  {todayMess?.meals.dinner.timing || '7:00 PM – 9:00 PM'}
+                </span>
               </div>
-              <p className="text-[12.5px] text-[#64748B] mt-0.5">
-                Menu not published
+              <p className="text-[12.5px] text-[#64748B] truncate mt-0.5">
+                {todayMess?.meals.dinner.items.map((item) => item.name).join(' • ') ||
+                  'Salad • Bhindi do pyaza • Soppu Sambar-Rasam'}
               </p>
             </div>
           </div>

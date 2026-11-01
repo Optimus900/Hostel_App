@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+bun.lock
+bun.lockb
+.aistudio/
+.vercel/
+.netlify/
